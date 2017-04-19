@@ -100,7 +100,7 @@ public class DistSysWordCountTopology {
       LocalCluster cluster = new LocalCluster();
       cluster.submitTopology("word-count", conf, builder.createTopology());
 
-      Thread.sleep(60000);
+      Thread.sleep(120000);
 
       cluster.shutdown();
     }
