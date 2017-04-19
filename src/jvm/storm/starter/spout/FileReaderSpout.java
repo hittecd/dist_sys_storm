@@ -16,12 +16,6 @@ import java.util.Scanner;
  */
 public class FileReaderSpout extends BaseRichSpout {
     SpoutOutputCollector _collector;
-    String _filename;
-
-    public FileReaderSpout(String filename) {
-        super();
-        this._filename = filename;
-    }
 
     @Override
     public void open(Map map, TopologyContext topologyContext, SpoutOutputCollector spoutOutputCollector) {

@@ -80,7 +80,7 @@ public class DistSysWordCountTopology {
 
     TopologyBuilder builder = new TopologyBuilder();
 
-    builder.setSpout("spout", new FileReaderSpout(args[0]), 5);
+    builder.setSpout("spout", new FileReaderSpout(), 5);
 
     builder.setBolt("split", new SplitSentence(), 8).shuffleGrouping("spout");
     builder.setBolt("count", new WordCount(), 12).fieldsGrouping("split", new Fields("word"));
