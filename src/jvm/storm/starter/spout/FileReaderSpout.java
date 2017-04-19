@@ -35,7 +35,7 @@ public class FileReaderSpout extends BaseRichSpout {
             // reads each line
             String sentence;
             while((sentence = r.readLine()) != null) {
-                sentence = sentence.replaceAll("[^A-Za-z]", "").toLowerCase();
+                sentence = sentence.replaceAll("[^A-Za-z ]", "").toLowerCase();
 
                 _collector.emit(new Values(sentence));
             }
