@@ -88,6 +88,9 @@
     <testSourceDirectory>test/jvm</testSourceDirectory>
     <resources>
       <resource>
+        <directory>src/main/resources/file</directory>
+      </resource>
+      <resource>
         <directory>${basedir}/multilang</directory>
       </resource>
     </resources>
