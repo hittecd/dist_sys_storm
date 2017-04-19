@@ -7,8 +7,7 @@ import backtype.storm.topology.base.BaseRichSpout;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -20,6 +19,7 @@ public class FileReaderSpout extends BaseRichSpout {
     String _filename;
 
     public FileReaderSpout(String filename) {
+        super();
         this._filename = filename;
     }
 
@@ -32,22 +32,25 @@ public class FileReaderSpout extends BaseRichSpout {
     public void nextTuple() {
         //Get file from resources folder
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(_filename).getFile());
 
         try {
-            Scanner scanner = new Scanner(file);
+            InputStream i = classLoader.getResourceAsStream("kjv.txt");
+            BufferedReader r = new BufferedReader(new InputStreamReader(i));
 
-            while (scanner.hasNextLine()) {
-                String sentence = scanner.nextLine();
 
+            // reads each line
+            String sentence;
+            while((sentence = r.readLine()) != null) {
                 sentence = sentence.replaceAll("[^A-Za-z]", "").toLowerCase();
 
                 _collector.emit(new Values(sentence));
             }
 
-            scanner.close();
+            i.close();
         }
         catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
